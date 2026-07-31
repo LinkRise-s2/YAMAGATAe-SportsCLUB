@@ -30,13 +30,11 @@
             color: var(--text-white);
             line-height: 1.8;
             overflow-x: hidden;
-            /* 単語の途中での改行を防ぐ */
             word-break: keep-all;
             overflow-wrap: break-word;
             line-break: strict;
         }
 
-        /* インラインブロックで単語の塊を維持 */
         .phrase { display: inline-block; }
 
         /* --- 背景アニメーション --- */
@@ -68,7 +66,8 @@
             100% { transform: translate(40px, 60px) rotate(15deg); }
         }
 
-        .container {
+        /* 横幅の統一：全セクション 1100px */
+        .container, .schedule-container {
             max-width: 1100px;
             margin: 0 auto;
             padding: 0 24px;
@@ -108,7 +107,7 @@
             font-size: clamp(3.2rem, 12vw, 9rem);
             font-weight: 900;
             line-height: 1.2;
-            padding: 0 0.2em; /* 末尾の欠け防止 */
+            padding: 0.1em 0.2em; /* 途切れ防止 */
             background: linear-gradient(to bottom, #fff, #ffb7ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -174,7 +173,7 @@
             color: #333;
             border-radius: 40px;
             padding: 48px;
-            margin: 120px 0;
+            margin: 120px auto;
             box-shadow: 0 20px 50px rgba(0,0,0,0.3);
         }
 
@@ -198,9 +197,7 @@
             text-align: center;
         }
 
-        .schedule-rows-wrap {
-            flex-grow: 1;
-        }
+        .schedule-rows-wrap { flex-grow: 1; }
 
         .schedule-row {
             display: grid;
@@ -260,50 +257,45 @@
         .contact-box h4 { margin-bottom: 16px; border-left: 4px solid var(--accent-pink); padding-left: 12px; }
         .copyright { text-align: center; opacity: 0.5; font-size: 0.9rem; margin-top: 40px; }
 
-        /* --- スマホ表示の個別最適化（PC版は変えない） --- */
+        /* --- スマホ表示最適化 --- */
         @media (max-width: 768px) {
-            .container { padding: 0 16px; }
-            .stage-grid, .info-layout, .footer-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+            .container, .schedule-container { padding: 0 16px; }
+            .stage-grid, .footer-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; }
             
-            /* 高校生スタッフ紹介を環境セクションと統一（PCと同じ内容を保持） */
-            .info-layout:nth-child(even) { flex-direction: column; }
-            .info-text h2 { text-align: center; font-size: 1.8rem; }
-            .info-text p { text-align: center; }
-            .info-text ul { display: inline-block; text-align: left; }
-            
+            /* スマホでもPCと同じ横並び（写真と内容）を維持 */
+            .info-layout { gap: 15px; }
+            .info-img { flex: 0 0 35%; }
+            .info-text { flex: 1; text-align: left; }
+            .info-text h2 { font-size: 1.1rem; margin-bottom: 8px; text-align: left; }
+            .info-text p { font-size: 0.8rem; text-align: left; margin-bottom: 8px; }
+            .info-text ul { font-size: 0.75rem; text-align: left; }
+            .image-box { height: auto; aspect-ratio: 4/3; margin-bottom: 0; }
+
             /* スマホ用タイトル改行 */
             .hero-title-br { display: block; }
-            .hero-title { font-size: 2.8rem; padding: 0.2em 0.1em; line-height: 1.3; }
+            .hero-title { font-size: 2.6rem; padding: 0.2em 0.1em; line-height: 1.3; }
 
-            /* 舞台タイトルを一行で完結 */
-            .section-title { font-size: 5.4vw; white-space: nowrap; margin-bottom: 40px; }
+            /* 舞台タイトルを一行完結 */
+            .section-title { font-size: 5.2vw; white-space: nowrap; margin-bottom: 40px; }
             
-            /* カード・文章の中央揃えと整列 */
-            .stage-card { padding: 32px 20px; border-radius: 30px; text-align: center; }
-            .stage-card h3 { text-align: center; }
-            .stage-card p { text-align: center; }
-            .image-box { height: 220px; margin-bottom: 24px; }
+            /* カード・文章の改行整列 */
+            .stage-card { padding: 24px 16px; border-radius: 20px; text-align: center; }
+            .stage-card h3 { text-align: center; font-size: 1.4rem; }
+            .stage-card p { text-align: center; font-size: 0.9rem; }
             
-            /* スケジュールを左揃えに */
-            .schedule-container { padding: 24px 16px; border-radius: 30px; margin: 80px 0; }
-            .month-block { flex-direction: column; align-items: center; gap: 12px; margin-bottom: 30px; }
-            .schedule-row { 
-                grid-template-columns: 1fr; 
-                gap: 4px; 
-                padding: 12px 0; 
-                font-size: 1rem;
-                text-align: left; 
-            }
-            .schedule-row > div { text-align: left !important; }
-            .date-cell { font-size: 1.1rem; font-weight: 900; }
+            /* スケジュール左揃え */
+            .schedule-container { padding: 24px 16px; margin: 60px auto; border-radius: 24px; }
+            .month-block { flex-direction: column; align-items: center; gap: 10px; margin-bottom: 24px; }
+            .schedule-row { grid-template-columns: 1fr; gap: 4px; font-size: 0.9rem; text-align: left; }
+            .date-cell { font-size: 1rem; font-weight: 900; }
             
-            .apply-btn { font-size: 1.3rem; padding: 20px 40px; border-radius: 50px; }
-            .floating-cta { padding: 15px 25px; font-size: 1rem; bottom: 15px; right: 15px; }
+            .apply-btn { font-size: 1.2rem; padding: 18px 36px; border-radius: 50px; }
+            .floating-cta { padding: 12px 20px; font-size: 0.9rem; bottom: 15px; right: 15px; }
             
-            /* 問い合わせ先情報の左揃え（タイトル以外） */
+            /* 問い合わせ先詳細 左揃え */
             .contact-box { text-align: center; }
-            .contact-box h4 { border-left: none; padding-left: 0; text-align: center; }
-            .contact-box p { text-align: left !important; display: block; margin: 0 auto; width: fit-content; }
+            .contact-box h4 { text-align: center; border-left: none; padding-left: 0; margin-bottom: 12px; }
+            .contact-box p { text-align: left !important; display: block; margin: 0 auto; width: fit-content; font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -368,7 +360,7 @@
         </div>
     </div>
 
-    <!-- 指導体制（スタッフ紹介） -->
+    <!-- 高校生スタッフ紹介：スマホでもPCと同様の構成 -->
     <div class="info-layout reveal">
         <div class="info-img">
             <div class="image-box"><img src="IMG_30961.JPG" alt="高校生コーチ"></div>
@@ -386,7 +378,7 @@
         </div>
     </div>
 
-    <!-- 環境紹介 -->
+    <!-- 環境紹介：スマホでもPCと同様の構成 -->
     <div class="info-layout reveal">
         <div class="info-img">
             <div class="image-box"><img src="IMG_1726.JPG" alt="練習環境"></div>
