@@ -30,7 +30,6 @@
             color: var(--text-white);
             line-height: 1.8;
             overflow-x: hidden;
-            /* 単語の途中での改行を防止 */
             word-break: keep-all;
             overflow-wrap: break-word;
             line-break: strict;
@@ -67,7 +66,7 @@
             100% { transform: translate(40px, 60px) rotate(15deg); }
         }
 
-        /* 横幅の統一：全セクション 1100px */
+        /* 横幅の統一 */
         .container, .schedule-container {
             max-width: 1100px;
             margin: 0 auto;
@@ -105,14 +104,12 @@
         }
 
         .hero-title {
-            /* PC版修正：見切れ防止のpadding拡大とwidth指定による完全な中央揃え */
             width: 100%;
-            display: block;
             text-align: center;
             font-size: clamp(3.2rem, 12vw, 9rem);
             font-weight: 900;
-            line-height: 1.3;
-            padding: 0.2em 0.5em; /* 文字の欠けを完全に防ぐ */
+            line-height: 1.4;
+            padding: 0.2em 0.5em; /* 見切れ防止を強化 */
             background: linear-gradient(to bottom, #fff, #ffb7ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -159,7 +156,7 @@
 
         .image-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- 指導体制・環境 (PCレイアウト用) --- */
+        /* --- 指導体制・環境 --- */
         .info-layout {
             display: flex;
             align-items: center;
@@ -260,36 +257,48 @@
         .contact-box h4 { margin-bottom: 16px; border-left: 4px solid var(--accent-pink); padding-left: 12px; }
         .copyright { text-align: center; opacity: 0.5; font-size: 0.9rem; margin-top: 40px; }
 
-        /* --- スマホ表示：横幅を完全に揃え、指定表記を反映 --- */
+        /* --- スマホ表示最適化 --- */
         @media (max-width: 768px) {
             .container, .schedule-container { padding: 0 16px; }
             .stage-grid, .footer-grid { grid-template-columns: 1fr; gap: 24px; text-align: center; }
             
-            /* スマホ用タイトル：指定の表記へ */
-            .hero-title { font-size: 2.6rem; padding: 0.2em 0.15em; line-height: 1.4; margin-bottom: 24px; }
-            .hero-title-yamagata { display: block; text-align: right; padding-right: 12%; } /* 山形を右寄せ */
-            .hero-title-club { display: block; text-align: left; padding-left: 10%; } /* クラブを左寄せ */
+            /* スマホ用ヒーロータイトル：指定通りの段落ずらし */
+            .hero-title { 
+                font-size: 2.5rem; 
+                padding: 0.2em 0.1em; 
+                line-height: 1.5; 
+                margin-bottom: 16px; 
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .hero-title-yamagata { transform: translateX(1.5em); display: block; }
+            .hero-title-club { transform: translateX(-0.5em); display: block; }
 
             /* 舞台タイトル一行完結 */
             .section-title { font-size: 5.4vw; white-space: nowrap; margin-bottom: 32px; letter-spacing: 0; }
 
-            /* 高校生スタッフ・環境：舞台カードと枠・幅を完全統一 */
+            /* 横幅を舞台カードと完全一致させる */
             .info-layout { 
-                display: block; 
+                display: flex; 
+                flex-direction: row; 
+                gap: 15px;
                 border-radius: 24px;
-                padding: 32px 20px;
+                padding: 24px 16px;
                 margin-bottom: 24px;
-                text-align: center;
+                text-align: left;
+                align-items: flex-start;
             }
-            .info-img { margin-bottom: 24px; flex: none; }
-            .info-text h2 { text-align: center; font-size: 1.3rem; margin-bottom: 16px; }
-            .info-text p { text-align: center; font-size: 0.9rem; margin-bottom: 16px; }
-            .info-text ul { display: inline-block; text-align: left; font-size: 0.85rem; }
+            .info-img { flex: 0 0 35%; margin-bottom: 0; }
+            .info-text { flex: 1; }
+            .info-text h2 { font-size: 1.1rem; margin-bottom: 8px; text-align: left; }
+            .info-text p { font-size: 0.8rem; text-align: left; margin-bottom: 8px; }
+            .info-text ul { font-size: 0.75rem; text-align: left; list-style: none; padding: 0; }
             
-            .stage-card { padding: 32px 20px; border-radius: 24px; text-align: center; margin-bottom: 0; }
+            .stage-card { padding: 24px 16px; border-radius: 24px; text-align: center; margin-bottom: 0; }
             .stage-card h3 { text-align: center; font-size: 1.3rem; }
             .stage-card p { text-align: center; font-size: 0.9rem; }
-            .image-box { height: auto; aspect-ratio: 16/10; margin-bottom: 20px; border-radius: 16px; }
+            .image-box { height: auto; aspect-ratio: 16/10; margin-bottom: 20px; border-radius: 12px; }
             
             /* スケジュール整列 */
             .schedule-container { padding: 24px 16px; margin: 60px auto; border-radius: 24px; }
@@ -298,7 +307,7 @@
                 grid-template-columns: 1fr; 
                 gap: 4px; 
                 padding: 10px 0; 
-                font-size: 0.95rem;
+                font-size: 0.9rem;
                 text-align: left; 
             }
             .schedule-row > div { text-align: left !important; }
@@ -306,10 +315,10 @@
             .apply-btn { font-size: 1.2rem; padding: 18px 36px; border-radius: 50px; }
             .floating-cta { padding: 12px 20px; font-size: 0.9rem; bottom: 15px; right: 15px; }
             
-            /* お問い合わせ詳細 左揃え */
+            /* 問い合わせ先詳細 左揃え */
             .contact-box { text-align: center; margin-bottom: 40px; }
-            .contact-box h4 { text-align: center; border-left: none; padding-left: 0; margin-bottom: 16px; }
-            .contact-box p { text-align: left !important; display: block; margin: 0 auto; width: fit-content; font-size: 0.85rem; }
+            .contact-box h4 { text-align: center; border-left: none; padding-left: 0; margin-bottom: 12px; }
+            .contact-box p { text-align: left !important; display: block; margin: 0 auto; width: fit-content; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -384,10 +393,10 @@
                 <span class="phrase">高校生スタッフが</span><span class="phrase">全力サポート！</span>
             </h2>
             <p style="margin-bottom: 20px;">惺山高等学校e-Sports部の部員が、専属コーチとして参加します。</p>
-            <ul style="list-style: none;">
-                <li style="margin-bottom: 12px;">✅ <strong>技術指導</strong>：一人ひとりに合わせたレクチャー</li>
-                <li style="margin-bottom: 12px;">✅ <strong>試合分析</strong>：プレイを見ながら勝つコツを伝授</li>
-                <li style="margin-bottom: 12px;">✅ <strong>振り返り指導</strong>：練習後の課題整理をサポート</li>
+            <ul>
+                <li>✅ <strong>技術指導</strong>：一人ひとりに合わせたレクチャー</li>
+                <li>✅ <strong>試合分析</strong>：勝つコツを伝授</li>
+                <li>✅ <strong>振り返り指導</strong>：課題整理をサポート</li>
             </ul>
         </div>
     </div>
