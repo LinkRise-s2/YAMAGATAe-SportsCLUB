@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>やまがたeスポーツクラブ 参加者大募集！</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #e60012; /* Nintendo Red */
+            --sub-color: #612d8a; /* Poster Purple */
+            --accent-color: #00a0e9; /* Blue */
+            --bg-color: #f4f4f4;
+            --text-color: #333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* --- Components --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60%;
+            height: 4px;
+            background: var(--sub-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        img.placeholder {
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            width: 100%;
+            height: auto;
+            min-height: 200px;
+            object-fit: cover;
+        }
+
+        /* --- Header / Hero --- */
+        header {
+            height: 90vh;
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .hero-tag {
+            background: var(--sub-color);
+            color: #fff;
+            padding: 5px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--sub-color);
+        }
+
+        .hero-image-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        /* --- Introduction --- */
+        .intro-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        /* --- Features (High School Coaches) --- */
+        .features {
+            background-color: var(--bg-color);
+            padding: 100px 0;
+            border-radius: 50px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* --- Schedule Table --- */
+        .schedule-section {
+            padding: 100px 0;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 15px;
+        }
+
+        .schedule-row {
+            background: #fff;
+            border: 2px solid #eee;
+            border-radius: 15px;
+        }
+
+        .schedule-row td {
+            padding: 20px;
+            border-top: 2px solid #eee;
+            border-bottom: 2px solid #eee;
+        }
+
+        .schedule-row td:first-child {
+            border-left: 2px solid #eee;
+            border-radius: 15px 0 0 15px;
+            font-weight: bold;
+            color: var(--sub-color);
+            width: 150px;
+        }
+
+        .schedule-row td:last-child {
+            border-right: 2px solid #eee;
+            border-radius: 0 15px 15px 0;
+        }
+
+        .event-highlight {
+            background: #fff0f0;
+            color: var(--primary-color);
+            font-weight: bold;
+            padding: 2px 10px;
+            border-radius: 5px;
+            border: 1px solid var(--primary-color);
+        }
+
+        /* --- Info Grid --- */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .info-item h3 {
+            border-left: 5px solid var(--sub-color);
+            padding-left: 15px;
+            margin-bottom: 15px;
+        }
+
+        /* --- CTA Section --- */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(var(--sub-color), #4b226b);
+            color: #fff;
+            border-radius: 50px 50px 0 0;
+        }
+
+        .apply-btn {
+            display: inline-block;
+            background: #fff;
+            color: var(--sub-color);
+            padding: 25px 60px;
+            border-radius: 100px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            margin: 30px 0;
+            transition: scale 0.2s;
+            box-shadow: 0 10px 0 rgba(0,0,0,0.2);
+        }
+
+        .apply-btn:hover {
+            scale: 1.05;
+        }
+
+        .note {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        footer {
+            padding: 50px 0;
+            background: #222;
+            color: #fff;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .info-grid { grid-template-columns: 1fr; }
+            .section-title { font-size: 1.8rem; }
+            .schedule-row td { display: block; width: 100% !important; border: none !important; padding: 10px 20px; }
+            .schedule-row td:first-child { padding-top: 20px; }
+            .schedule-row td:last-child { padding-bottom: 20px; border-radius: 15px !important; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="hero-image-box">
+        <!-- 背景に薄く流す用の画像（例：ゲームプレイ風景） -->
+        <div style="font-size: 10rem; font-weight: 900; color: #eee;">e-Sports</div>
+    </div>
+    <div class="hero-content container">
+        <span class="hero-tag">小・中学生対象 / 参加費無料</span>
+        <h1 class="hero-title">やまがた<br>eスポーツクラブ</h1>
+        <p style="font-size: 1.5rem; font-weight: bold;">高校生コーチが全力サポート！君もプロの舞台へ挑もう。</p>
+        <a href="#apply" class="apply-btn" style="background: var(--sub-color); color: #fff;">今すぐ申し込む</a>
+    </div>
+</header>
+
+<section class="intro-section container">
+    <h2 class="section-title">2つの大きな舞台に挑もう！</h2>
+    <p class="intro-text">
+        本事業は、部活動の地域移行を見据えた新たな活動機会としてeスポーツを導入します。<br>
+        単なるゲーム体験ではなく、論理的思考力やコミュニケーション能力を育む「競技としてのeスポーツ」を学びます。
+    </p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <!-- 画像：LoLのイメージ -->
+        <img src="https://via.placeholder.com/600x350?text=League+of+Legends+Section" alt="LoL部門" class="placeholder">
+        <!-- 画像：スト6のイメージ -->
+        <img src="https://via.placeholder.com/600x350?text=Street+Fighter+6+Section" alt="スト6部門" class="placeholder">
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <h2 class="section-title">ここがポイント！</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>高校生がコーチ！</h3>
+                <p>惺山高等学校eスポーツ部の部員が、技術指導や試合分析、振り返り指導をマンツーマンに近い形で実施します。</p>
+                <img src="https://via.placeholder.com/400x250?text=Coach+Image" alt="高校生コーチ" class="placeholder" style="margin-top:20px;">
+            </div>
+            <div class="feature-card">
+                <h3>本格的な指導体制</h3>
+                <p>ネットワーク知識やネットモラル、戦略学習など、競技者として必要なリテラシーもしっかり学べます。</p>
+            </div>
+            <div class="feature-card">
+                <h3>最高の環境</h3>
+                <p>会場は惺山高等学校のCRルーム。最新のデバイスが揃った環境で練習に打ち込めます。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="schedule-section container">
+    <h2 class="section-title">活動スケジュール</h2>
+    <p style="text-align: center; margin-bottom: 30px;">全9回。通常練習 10:00〜12:00</p>
+    
+    <table class="schedule-table">
+        <tr class="schedule-row">
+            <td>9/5(土)-6(日)</td>
+            <td><strong>League of Legends 入門</strong><br>タイトル決定とチーム編成を行います。</td>
+        </tr>
+        <tr class="schedule-row">
+            <td>9/12(土)-13(日)</td>
+            <td><strong>League of Legends 練習会</strong><br>プレイの基礎を身につけよう！</td>
+        </tr>
+        <tr class="schedule-row">
+            <td>9/26(土)-27(日)</td>
+            <td><strong>League of Legends 特訓編</strong><br>イベントに向けて追い込み練習。</td>
+        </tr>
+        <tr class="schedule-row" style="border: 3px solid var(--primary-color);">
+            <td>10/11(日)</td>
+            <td><span class="event-highlight">EVENT</span> <strong>やまがた市民スポーツフェスタ</strong><br>エキシビションマッチに出場！</td>
+        </tr>
+        <tr class="schedule-row">
+            <td>10/24(土)</td>
+            <td><strong>ストリートファイター6 練習会</strong><br>高度な技と立ち回りを習得しよう。</td>
+        </tr>
+        <tr class="schedule-row">
+            <td>11/3(火・祝)</td>
+            <td><strong>ストリートファイター6 特訓</strong><br>実践形式によるトレーニング。</td>
+        </tr>
+        <tr class="schedule-row" style="border: 3px solid var(--primary-color);">
+            <td>11/8(日)</td>
+            <td><span class="event-highlight">EVENT</span> <strong>やまがたeスポーツフェスタ</strong><br>対戦会出場！日頃の成果を披露。</td>
+        </tr>
+        <tr class="schedule-row">
+            <td>12/19(土)</td>
+            <td><strong>交流対戦会</strong><br>惺山高校eスポーツ部との総括マッチ。</td>
+        </tr>
+    </table>
+</section>
+
+<section class="container" style="padding-bottom: 100px;">
+    <h2 class="section-title">実施概要</h2>
+    <div class="info-grid">
+        <div class="info-item">
+            <h3>会場</h3>
+            <p><strong>惺山高等学校 CRルーム</strong><br>
+            山形市城西町三丁目13−7<br>
+            <small>※初回は必ず保護者の方の同行をお願いいたします。</small></p>
+        </div>
+        <div class="info-item">
+            <h3>対象・定員</h3>
+            <p>小学生・中学生（先着30名）<br>
+            参加費：<strong>無料</strong></p>
+        </div>
+        <div class="info-item">
+            <h3>競技タイトル</h3>
+            <p>・League of Legends<br>・ストリートファイター6</p>
+        </div>
+        <div class="info-item">
+            <h3>指導者</h3>
+            <p>LinkRise 管 悠南<br>
+            惺山高等学校e-Sports部顧問 高橋 亮 / 伊藤 翔汰</p>
+        </div>
+    </div>
+</section>
+
+<section id="apply" class="cta-section">
+    <div class="container">
+        <h2 style="font-size: 2.5rem; margin-bottom: 20px;">君の挑戦を待っている！</h2>
+        <p>最高のe-Sportsプレイヤーに成長していこう！</p>
+        
+        <!-- 画像：QRコードのプレースホルダー -->
+        <div style="margin-top: 30px;">
+            <img src="https://via.placeholder.com/150x150?text=QR+Code" alt="申し込みQR" style="border-radius: 10px; background: #fff; padding: 10px;">
+        </div>
+
+        <a href="#" class="apply-btn">参加申し込みフォームへ</a>
+        
+        <div class="note">
+            <p>※お申し込みには保護者の承諾が必要です。</p>
+            <p>※日程は会場の都合により変更となる場合があります。</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+        <div>
+            <p><strong>お問い合わせ先</strong></p>
+            <p>LinkRise（管）：080-7627-0167 / k-haruna@linkrise.jp</p>
+            <p>惺山高等学校（高橋）：023-643-0321 / makoto-t@seizan.ed.jp</p>
+        </div>
+        <div>
+            <p>&copy; やまがたeスポーツクラブ / LinkRise / 惺山高等学校</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
