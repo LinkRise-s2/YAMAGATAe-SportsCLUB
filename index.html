@@ -105,10 +105,9 @@
         }
 
         .hero-title {
-            /* PC版中央揃え修正：幅を100%にしてtext-align centerで確実に固定 */
             width: 100%;
             display: block;
-            text-align: center;
+            text-align: center; /* 完全中央揃え */
             font-size: clamp(3.2rem, 12vw, 9rem);
             font-weight: 900;
             line-height: 1.2;
@@ -116,7 +115,7 @@
             background: linear-gradient(to bottom, #fff, #ffb7ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin: 0 0 24px;
+            margin: 0 auto 24px;
             filter: drop-shadow(0 0 30px rgba(255, 183, 255, 0.4));
         }
 
@@ -128,7 +127,7 @@
             letter-spacing: 0.05em;
         }
 
-        /* --- セクション共通：舞台カードスタイル --- */
+        /* --- セクション共通スタイル --- */
         .stage-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -136,7 +135,7 @@
             margin-bottom: 120px;
         }
 
-        .stage-card, .info-layout-card {
+        .stage-card, .info-layout {
             background: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 40px;
@@ -146,7 +145,7 @@
             text-align: left;
         }
 
-        .stage-card:hover, .info-layout-card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.12); }
+        .stage-card:hover, .info-layout:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.12); }
 
         .image-box {
             width: 100%;
@@ -260,38 +259,44 @@
         .contact-box h4 { margin-bottom: 16px; border-left: 4px solid var(--accent-pink); padding-left: 12px; }
         .copyright { text-align: center; opacity: 0.5; font-size: 0.9rem; margin-top: 40px; }
 
-        /* --- スマホ表示：横幅を完全に揃え、整列を徹底 --- */
+        /* --- スマホ表示最適化 --- */
         @media (max-width: 768px) {
-            .container { padding: 0 16px; }
+            .container, .schedule-container { padding: 0 16px; }
             .stage-grid, .footer-grid { grid-template-columns: 1fr; gap: 24px; text-align: center; }
             
-            /* スマホ用ヒーロータイトル改行 */
-            .hero-title-br { display: block; }
-            .hero-title { font-size: 2.6rem; padding: 0.2em 0.15em; line-height: 1.3; margin-bottom: 16px; }
+            /* スマホでも紹介セクションの横幅を舞台カードと完全に合わせる */
+            .info-layout { 
+                display: flex; 
+                flex-direction: row; 
+                gap: 15px;
+                border-radius: 24px;
+                padding: 24px 16px;
+                margin-bottom: 24px;
+                text-align: left;
+                align-items: flex-start;
+            }
+            .info-img { flex: 0 0 35%; margin-bottom: 0; }
+            .info-text { flex: 1; }
+            .info-text h2 { font-size: 1.1rem; margin-bottom: 8px; text-align: left; }
+            .info-text p { font-size: 0.8rem; text-align: left; margin-bottom: 8px; }
+            .info-text ul { font-size: 0.75rem; text-align: left; list-style: none; padding: 0; }
+
+            /* スマホ用タイトル：完全中央揃えの二行 */
+            .hero-title { 
+                font-size: 2.5rem; 
+                padding: 0.2em 0.1em; 
+                line-height: 1.3; 
+                margin-bottom: 16px; 
+                text-align: center;
+            }
             
             /* 舞台タイトルを一行完結 */
             .section-title { font-size: 5.4vw; white-space: nowrap; margin-bottom: 32px; letter-spacing: 0; }
-
-            /* 紹介セクション（スタッフ・環境）を舞台カードと「横幅」を完全に合わせる */
-            .info-layout { 
-                display: block; 
-                background: var(--card-bg); 
-                border: 1px solid rgba(255, 255, 255, 0.15);
-                border-radius: 24px;
-                padding: 32px 20px;
-                margin-bottom: 24px;
-                text-align: center;
-            }
-            .info-img { margin-bottom: 24px; }
-            .info-text h2 { text-align: center; font-size: 1.3rem; margin-bottom: 16px; }
-            .info-text p { text-align: center; font-size: 0.9rem; margin-bottom: 16px; }
-            .info-text ul { display: inline-block; text-align: left; font-size: 0.85rem; }
             
-            /* 舞台カード自体のスマホ調整 */
-            .stage-card { padding: 32px 20px; border-radius: 24px; text-align: center; margin-bottom: 0; }
+            .stage-card { padding: 24px 16px; border-radius: 24px; text-align: center; margin-bottom: 0; }
             .stage-card h3 { text-align: center; font-size: 1.3rem; }
             .stage-card p { text-align: center; font-size: 0.9rem; }
-            .image-box { height: auto; aspect-ratio: 16/10; margin-bottom: 20px; border-radius: 16px; }
+            .image-box { height: auto; aspect-ratio: 16/10; margin-bottom: 20px; border-radius: 12px; }
             
             /* スケジュール整列 */
             .schedule-container { padding: 24px 16px; margin: 60px auto; border-radius: 24px; }
@@ -304,7 +309,6 @@
                 text-align: left; 
             }
             .schedule-row > div { text-align: left !important; }
-            .date-cell { font-size: 1rem; font-weight: 900; }
             
             .apply-btn { font-size: 1.2rem; padding: 18px 36px; border-radius: 50px; }
             .floating-cta { padding: 12px 20px; font-size: 0.9rem; bottom: 15px; right: 15px; }
@@ -333,7 +337,7 @@
     <div class="container">
         <span class="hero-badge reveal">小・中学生対象 / 参加費無料</span>
         <h1 class="hero-title reveal">
-            <span class="phrase hero-title-br">山形</span><span>eスポーツクラブ</span>
+            山形<br>eスポーツクラブ
         </h1>
         <p class="reveal" style="font-size: clamp(1rem, 3vw, 1.4rem); font-weight: bold; letter-spacing: 0.3em;">
             <span class="phrase">参加者大募集！</span><span class="phrase">先着30名</span>
