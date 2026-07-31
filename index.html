@@ -30,9 +30,14 @@
             color: var(--text-white);
             line-height: 1.8;
             overflow-x: hidden;
-            word-break: normal;
-            overflow-wrap: anywhere;
+            /* 単語の途中での改行を防ぎ、句読点のルールを厳格化 */
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            line-break: strict;
         }
+
+        /* インラインブロックで単語の塊を維持 */
+        .phrase { display: inline-block; }
 
         /* --- 背景アニメーション --- */
         .stars {
@@ -103,7 +108,7 @@
             font-size: clamp(3.2rem, 12vw, 9rem);
             font-weight: 900;
             line-height: 1.2;
-            padding: 0 0.2em; /* 末尾の欠け防止 */
+            padding: 0 0.2em;
             background: linear-gradient(to bottom, #fff, #ffb7ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -163,7 +168,7 @@
         .info-text { flex: 1; }
         .info-img { flex: 1; }
 
-        /* --- 活動スケジュール（レイアウト修正：月の右側から開始） --- */
+        /* --- 活動スケジュール --- */
         .schedule-container {
             background: #fff;
             color: #333;
@@ -174,7 +179,7 @@
         }
 
         .month-block {
-            display: flex; /* 横並びに復元 */
+            display: flex;
             gap: 30px;
             margin-bottom: 40px;
             align-items: flex-start;
@@ -255,38 +260,50 @@
         .contact-box h4 { margin-bottom: 16px; border-left: 4px solid var(--accent-pink); padding-left: 12px; }
         .copyright { text-align: center; opacity: 0.5; font-size: 0.9rem; margin-top: 40px; }
 
-        /* --- スマホ最適化（中央揃え・改行の整列） --- */
+        /* --- スマホ表示の個別最適化（PC版は変えない） --- */
         @media (max-width: 768px) {
             .container { padding: 0 16px; }
             .stage-grid, .info-layout, .footer-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+            
+            /* 高校生スタッフ紹介を環境セクションと統一 */
             .info-layout:nth-child(even) { flex-direction: column; }
             .info-text h2 { text-align: center; font-size: 1.8rem; }
-            .info-text p { text-align: center; } /* スマホ中央揃え */
+            .info-text p { text-align: center; }
             .info-text ul { display: inline-block; text-align: left; }
             
-            .hero-title { font-size: 2.8rem; padding: 0.2em 0.1em; }
-            .section-title { font-size: 1.8rem; margin-bottom: 40px; }
+            /* スマホ用ヒーロータイトル改行 */
+            .hero-title-br { display: block; }
+            .hero-title { font-size: 2.8rem; padding: 0.2em 0.1em; line-height: 1.3; }
+
+            /* 舞台タイトルを一行に完結 */
+            .section-title { font-size: 5.4vw; white-space: nowrap; margin-bottom: 40px; }
             
-            .stage-card { padding: 32px 24px; border-radius: 30px; text-align: center; }
-            .stage-card h3 { text-align: center; word-break: keep-all; }
-            .stage-card p { text-align: center; word-break: keep-all; } /* 改行の整列 */
+            /* カード・文章の中央揃えと改行整列 */
+            .stage-card { padding: 32px 20px; border-radius: 30px; text-align: center; }
+            .stage-card h3 { text-align: center; }
+            .stage-card p { text-align: center; }
             .image-box { height: 220px; margin-bottom: 24px; }
             
-            .schedule-container { padding: 24px 20px; border-radius: 30px; margin: 80px 0; text-align: center; }
-            .month-block { flex-direction: column; align-items: center; gap: 15px; margin-bottom: 30px; }
+            /* スケジュールを左揃えに */
+            .schedule-container { padding: 24px 16px; border-radius: 30px; margin: 80px 0; }
+            .month-block { flex-direction: column; align-items: center; gap: 12px; margin-bottom: 30px; }
             .schedule-row { 
                 grid-template-columns: 1fr; 
                 gap: 4px; 
                 padding: 12px 0; 
-                font-size: 1.1rem;
-                text-align: center;
+                font-size: 1rem;
+                text-align: left; /* スケジュール文章を左揃え */
             }
+            .schedule-row > div { text-align: left !important; }
+            .date-cell { font-size: 1.1rem; font-weight: 900; }
             
             .apply-btn { font-size: 1.3rem; padding: 20px 40px; border-radius: 50px; }
             .floating-cta { padding: 15px 25px; font-size: 1rem; bottom: 15px; right: 15px; }
             
+            /* 問い合わせ先情報の左揃え */
             .contact-box { text-align: center; }
-            .contact-box h4 { border-left: none; padding-left: 0; }
+            .contact-box h4 { border-left: none; padding-left: 0; text-align: center; }
+            .contact-box p { text-align: left !important; display: block; margin: 0 auto; width: fit-content; }
         }
     </style>
 </head>
@@ -306,8 +323,12 @@
 <section class="hero">
     <div class="container">
         <span class="hero-badge reveal">小・中学生対象 / 参加費無料</span>
-        <h1 class="hero-title reveal">山形eスポーツクラブ</h1>
-        <p class="reveal" style="font-size: clamp(1rem, 3vw, 1.4rem); font-weight: bold; letter-spacing: 0.3em;">参加者大募集！先着30名</p>
+        <h1 class="hero-title reveal">
+            <span class="phrase hero-title-br">山形</span><span>eスポーツクラブ</span>
+        </h1>
+        <p class="reveal" style="font-size: clamp(1rem, 3vw, 1.4rem); font-weight: bold; letter-spacing: 0.3em;">
+            <span class="phrase">参加者大募集！</span><span class="phrase">先着30名</span>
+        </p>
     </div>
 </section>
 
@@ -318,15 +339,32 @@
             <div class="image-box">
                 <img src="img0502.jpg" alt="League of Legends 練習風景">
             </div>
-            <h3 style="color: var(--accent-blue); font-size: 1.8rem; margin-bottom: 16px;">10月：<br>League of Legends 部門</h3>
-            <p>山形市民スポーツフェスタ エキシビションマッチへの出場を目指し、チーム連携の基礎から戦術までを学びます。</p>
+            <h3 style="color: var(--accent-blue); font-size: 1.8rem; margin-bottom: 16px;">
+                <span class="phrase">10月：</span><br><span class="phrase">League of Legends 部門</span>
+            </h3>
+            <p>
+                <span class="phrase">山形市民スポーツフェスタ</span> 
+                <span class="phrase">エキシビションマッチへの</span> 
+                <span class="phrase">出場を目指し、</span> 
+                <span class="phrase">チーム連携の基礎から</span> 
+                <span class="phrase">戦術までを学びます。</span>
+            </p>
         </div>
         <div class="stage-card reveal" style="transition-delay: 0.2s;">
             <div class="image-box">
                 <img src="img0154.jpg" alt="Street Fighter 6 練習風景">
             </div>
-            <h3 style="color: var(--accent-pink); font-size: 1.8rem; margin-bottom: 16px;">11月：<br>ストリートファイター部門</h3>
-            <p>やまがたeスポーツフェスタ2026 in SEIZAN 対戦会への出場を目指し、格闘ゲーム特有の駆け引きや操作技術を磨きます。</p>
+            <h3 style="color: var(--accent-pink); font-size: 1.8rem; margin-bottom: 16px;">
+                <span class="phrase">11月：</span><br><span class="phrase">ストリートファイター部門</span>
+            </h3>
+            <p>
+                <span class="phrase">やまがたeスポーツフェスタ</span> 
+                <span class="phrase">2026 in SEIZAN</span> 
+                <span class="phrase">対戦会への出場を目指し、</span> 
+                <span class="phrase">格闘ゲーム特有の</span> 
+                <span class="phrase">駆け引きや操作技術を</span> 
+                <span class="phrase">磨きます。</span>
+            </p>
         </div>
     </div>
 
@@ -335,7 +373,9 @@
             <div class="image-box"><img src="IMG_30961.JPG" alt="高校生コーチ"></div>
         </div>
         <div class="info-text">
-            <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 24px;">高校生スタッフが全力サポート！</h2>
+            <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 24px;">
+                <span class="phrase">高校生スタッフが</span><span class="phrase">全力サポート！</span>
+            </h2>
             <p style="margin-bottom: 20px;">惺山高等学校e-Sports部の部員が、専属コーチとして参加します。</p>
             <ul style="list-style: none;">
                 <li style="margin-bottom: 12px;">✅ <strong>技術指導</strong>：一人ひとりに合わせたレクチャー</li>
@@ -350,7 +390,9 @@
             <div class="image-box"><img src="IMG_1726.JPG" alt="練習環境"></div>
         </div>
         <div class="info-text">
-            <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 24px;">最高環境の最先端デバイス</h2>
+            <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 24px;">
+                <span class="phrase">最高環境の</span><span class="phrase">最先端デバイス</span>
+            </h2>
             <p>練習会場は「惺山高等学校 3階 CRルーム」。最新の機材を完備しており、プロと同じ視点でのトレーニングが可能です。</p>
         </div>
     </div>
@@ -392,9 +434,13 @@
     </div>
 
     <div class="apply-btn-wrap reveal">
-        <h2 style="font-size: clamp(1.5rem, 4vw, 2.5rem); margin-bottom: 40px; line-height: 1.4;">最高のe-Sportsプレイヤーに、君も成長していこう！</h2>
+        <h2 style="font-size: clamp(1.5rem, 4vw, 2.5rem); margin-bottom: 40px; line-height: 1.4;">
+            <span class="phrase">最高のe-Sportsプレイヤーに、</span><span class="phrase">君も成長していこう！</span>
+        </h2>
         <a href="https://forms.gle/TWiH7YhBqPy3ENDX8" class="apply-btn" target="_blank">参加申し込みはこちら</a>
-        <p style="margin-top: 30px; opacity: 0.8; font-size: 0.9rem;">※保護者の承諾が必要です。初回は保護者同伴でお越しください。</p>
+        <p style="margin-top: 30px; opacity: 0.8; font-size: 0.9rem;">
+            <span class="phrase">※保護者の承諾が必要です。</span><span class="phrase">初回は保護者同伴でお越しください。</span>
+        </p>
     </div>
 </section>
 
@@ -403,14 +449,14 @@
         <div class="footer-grid">
             <div class="contact-box">
                 <h4>LinkRise</h4>
-                <p>代表：管 悠南</p>
+                <p>代表：管 悠南 (Yuna Suga)</p>
                 <p>TEL：080(7627)0167</p>
                 <p>Mail：k-haruna@linkrise.jp</p>
             </div>
             <div class="contact-box">
                 <h4>惺山高等学校 e-Sports部</h4>
                 <p>顧問：高橋 亮 / 伊藤 翔汰</p>
-                <p>TEL：023(643)0321</p>
+                <p>TEL：023(643)0321 代表</p>
                 <p>Mail：makoto-t@seizan.ed.jp</p>
                 <p>住所：山形市城西町三丁目13−7</p>
             </div>
