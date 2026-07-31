@@ -30,12 +30,10 @@
             color: var(--text-white);
             line-height: 1.8;
             overflow-x: hidden;
-            /* 変な改行を防ぐための基本設定 */
             word-break: keep-all;
             overflow-wrap: break-word;
         }
 
-        /* 文字の塊を維持する用 */
         .nowrap { display: inline-block; }
 
         /* --- 背景アニメーション --- */
@@ -104,15 +102,18 @@
         }
 
         .hero-title {
+            /* 途切れ防止のためpaddingとline-heightを調整 */
             font-size: clamp(3.2rem, 12vw, 9rem);
             font-weight: 900;
-            line-height: 1.1;
+            line-height: 1.2;
+            padding: 0.1em 0;
             background: linear-gradient(to bottom, #fff, #ffb7ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 24px;
             filter: drop-shadow(0 0 30px rgba(255, 183, 255, 0.4));
             text-align: center;
+            width: 100%;
         }
 
         /* --- セクションタイトル --- */
@@ -144,11 +145,6 @@
 
         .stage-card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.12); }
 
-        .stage-card h3 {
-            display: block;
-            text-align: left;
-        }
-
         .image-box {
             width: 100%;
             height: 320px;
@@ -171,27 +167,37 @@
         .info-text { flex: 1; }
         .info-img { flex: 1; }
 
-        /* --- 活動スケジュール（右の余白を解消） --- */
+        /* --- 活動スケジュール（レイアウト修正） --- */
         .schedule-container {
             background: #fff;
             color: #333;
             border-radius: 40px;
             padding: 48px;
             margin: 120px auto;
-            max-width: 960px; /* PCでの余白感をなくすため少し幅を絞る */
+            max-width: 960px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.3);
         }
 
-        .month-block { margin-bottom: 24px; }
+        .month-block {
+            display: flex; /* 横並び設定 */
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
         .month-title {
+            flex-shrink: 0;
             display: inline-block;
             background: var(--primary-bg);
             color: #fff;
-            padding: 6px 24px;
+            padding: 8px 24px;
             border-radius: 8px;
             font-weight: 900;
             font-size: 1.3rem;
-            margin-bottom: 12px;
+            height: fit-content;
+        }
+
+        .schedule-rows-wrap {
+            flex-grow: 1;
         }
 
         .schedule-row {
@@ -202,6 +208,7 @@
             align-items: center;
             font-size: 1.25rem;
         }
+        .schedule-row:last-child { border-bottom: none; }
         .date-cell { font-weight: bold; color: var(--accent-pink); }
         .type-cell { font-weight: bold; color: #555; }
         .event-highlight { color: var(--accent-pink); font-weight: 900; }
@@ -252,24 +259,30 @@
         .contact-box h4 { margin-bottom: 16px; border-left: 4px solid var(--accent-pink); padding-left: 12px; }
         .copyright { text-align: center; opacity: 0.5; font-size: 0.9rem; margin-top: 40px; }
 
-        /* --- スマホ最適化 --- */
+        /* --- スマホ最適化（中央揃え徹底） --- */
         @media (max-width: 768px) {
             .container { padding: 0 16px; }
-            .stage-grid, .info-layout, .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .stage-grid, .info-layout, .footer-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; }
             .info-layout:nth-child(even) { flex-direction: column; }
+            .info-text h2 { text-align: center; }
+            .info-text ul { display: inline-block; text-align: left; }
             
-            .hero-title { font-size: 3.2rem; line-height: 1.2; padding: 0 10px; }
+            .hero-title { font-size: 3.2rem; line-height: 1.2; padding: 0.2em 0; }
             .section-title { font-size: 1.8rem; margin-bottom: 40px; }
             
-            .stage-card { padding: 32px 24px; border-radius: 30px; }
+            .stage-card { padding: 32px 24px; border-radius: 30px; text-align: center; }
+            .stage-card h3 { text-align: center; }
             .image-box { height: 220px; margin-bottom: 24px; }
             
-            .schedule-container { padding: 24px 20px; border-radius: 30px; margin: 80px 0; }
+            /* スケジュールスマホ版 */
+            .month-block { flex-direction: column; align-items: center; gap: 15px; margin-bottom: 30px; }
+            .schedule-container { padding: 24px 20px; border-radius: 30px; margin: 80px 0; text-align: center; }
             .schedule-row { 
                 grid-template-columns: 1fr; 
-                gap: 2px; 
+                gap: 4px; 
                 padding: 12px 0; 
                 font-size: 1.1rem;
+                text-align: center;
             }
             .date-cell { font-size: 1.2rem; margin-bottom: 4px; }
             .type-cell { display: inline-block; font-size: 0.9rem; margin-bottom: 4px; border: 1px solid #ddd; padding: 1px 8px; border-radius: 4px; }
@@ -277,7 +290,8 @@
             .apply-btn { font-size: 1.3rem; padding: 20px 40px; border-radius: 50px; }
             .floating-cta { padding: 15px 25px; font-size: 1rem; bottom: 15px; right: 15px; }
             
-            .nowrap-sp { display: inline-block; }
+            .contact-box { text-align: center; }
+            .contact-box h4 { border-left: none; padding-left: 0; }
         }
     </style>
 </head>
@@ -314,18 +328,18 @@
                 <img src="img0502.jpg" alt="League of Legends 練習風景">
             </div>
             <h3 style="color: var(--accent-blue); font-size: 1.8rem; margin-bottom: 16px;">
-                <span class="nowrap-sp">10月：</span><br class="pc-only"><span class="nowrap-sp">League of Legends 部門</span>
+                <span class="nowrap">10月：</span><br><span class="nowrap">League of Legends 部門</span>
             </h3>
-            <p><span class="nowrap-sp">山形市民スポーツフェスタ </span><span class="nowrap-sp">エキシビションマッチへの</span><span class="nowrap-sp">出場を目指し、</span><span class="nowrap-sp">チーム連携の基礎から</span><span class="nowrap-sp">戦術までを</span><span class="nowrap-sp">学びます。</span></p>
+            <p>山形市民スポーツフェスタ エキシビションマッチへの出場を目指し、チーム連携の基礎から戦術までを学びます。</p>
         </div>
         <div class="stage-card reveal" style="transition-delay: 0.2s;">
             <div class="image-box">
                 <img src="img0154.jpg" alt="Street Fighter 6 練習風景">
             </div>
             <h3 style="color: var(--accent-pink); font-size: 1.8rem; margin-bottom: 16px;">
-                <span class="nowrap-sp">11月：</span><br class="pc-only"><span class="nowrap-sp">ストリートファイター部門</span>
+                <span class="nowrap">11月：</span><br><span class="nowrap">ストリートファイター部門</span>
             </h3>
-            <p><span class="nowrap-sp">やまがたeスポーツフェスタ</span><span class="nowrap-sp">2026 in SEIZAN </span><span class="nowrap-sp">対戦会への出場を目指し、</span><span class="nowrap-sp">格闘ゲーム特有の</span><span class="nowrap-sp">駆け引きや操作技術を</span><span class="nowrap-sp">磨きます。</span></p>
+            <p>やまがたeスポーツフェスタ2026 in SEIZAN 対戦会への出場を目指し、格闘ゲーム特有の駆け引きや操作技術を磨きます。</p>
         </div>
     </div>
 
@@ -335,7 +349,7 @@
         </div>
         <div class="info-text">
             <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 24px;">
-                <span class="nowrap">高校生スタッフが</span><span class="nowrap">全力サポート！</span>
+                高校生スタッフが全力サポート！
             </h2>
             <p style="margin-bottom: 20px;">惺山高等学校e-Sports部の部員が、専属コーチとして参加します。</p>
             <ul style="list-style: none;">
@@ -352,43 +366,51 @@
         </div>
         <div class="info-text">
             <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 24px;">
-                <span class="nowrap">最高環境の</span><span class="nowrap">最先端デバイス</span>
+                最高環境の最先端デバイス
             </h2>
             <p>練習会場は「惺山高等学校 3階 CRルーム」。最新の機材を完備しており、プロと同じ視点でのトレーニングが可能です。</p>
         </div>
     </div>
 
     <div class="schedule-container reveal">
-        <h2 style="text-align: center; margin-bottom: 40px; font-size: clamp(1.8rem, 5vw, 2.5rem);">活動スケジュール</h2>
+        <h2 style="text-align: center; margin-bottom: 50px; font-size: clamp(1.8rem, 5vw, 2.5rem);">活動スケジュール</h2>
         
         <div class="month-block">
             <div class="month-title">9月</div>
-            <div class="schedule-row"><div class="date-cell">9/5 - 6</div><div class="type-cell">入門編</div><div>タイトルとチームを決めよう！</div></div>
-            <div class="schedule-row"><div class="date-cell">9/12 - 13</div><div class="type-cell">基礎編</div><div>プレイの基礎を身につけよう！</div></div>
-            <div class="schedule-row"><div class="date-cell">9/26 - 27</div><div class="type-cell">特訓編</div><div>イベントに向けて追い込み</div></div>
+            <div class="schedule-rows-wrap">
+                <div class="schedule-row"><div class="date-cell">9/5 - 6</div><div class="type-cell">入門編</div><div>タイトルとチームを決めよう！</div></div>
+                <div class="schedule-row"><div class="date-cell">9/12 - 13</div><div class="type-cell">基礎編</div><div>プレイの基礎を身につけよう！</div></div>
+                <div class="schedule-row"><div class="date-cell">9/26 - 27</div><div class="type-cell">特訓編</div><div>イベントに向けて追い込み</div></div>
+            </div>
         </div>
 
         <div class="month-block">
             <div class="month-title">10月</div>
-            <div class="schedule-row"><div class="date-cell">10/11</div><div class="type-cell">大会</div><div class="event-highlight">山形市民スポーツフェスタに出場！</div></div>
-            <div class="schedule-row"><div class="date-cell">10/24</div><div class="type-cell">練習編</div><div>高度な技と立ち回りを習得！</div></div>
+            <div class="schedule-rows-wrap">
+                <div class="schedule-row"><div class="date-cell">10/11</div><div class="type-cell">大会</div><div class="event-highlight">山形市民スポーツフェスタに出場！</div></div>
+                <div class="schedule-row"><div class="date-cell">10/24</div><div class="type-cell">練習編</div><div>高度な技と立ち回りを習得！</div></div>
+            </div>
         </div>
 
         <div class="month-block">
             <div class="month-title">11月</div>
-            <div class="schedule-row"><div class="date-cell">11/3</div><div class="type-cell">特訓編2</div><div>イベントに向けて追い込み</div></div>
-            <div class="schedule-row"><div class="date-cell">11/8</div><div class="type-cell">大会</div><div class="event-highlight">やまがたeスポーツフェスタに出場！</div></div>
+            <div class="schedule-rows-wrap">
+                <div class="schedule-row"><div class="date-cell">11/3</div><div class="type-cell">特訓編2</div><div>イベントに向けて追い込み</div></div>
+                <div class="schedule-row"><div class="date-cell">11/8</div><div class="type-cell">大会</div><div class="event-highlight">やまがたeスポーツフェスタに出場！</div></div>
+            </div>
         </div>
 
         <div class="month-block">
             <div class="month-title">12月</div>
-            <div class="schedule-row"><div class="date-cell">12/19</div><div class="type-cell">交流</div><div>惺山eスポーツ部との交流対戦会</div></div>
+            <div class="schedule-rows-wrap">
+                <div class="schedule-row"><div class="date-cell">12/19</div><div class="type-cell">交流</div><div>惺山eスポーツ部との交流対戦会</div></div>
+            </div>
         </div>
     </div>
 
     <div class="apply-btn-wrap reveal">
         <h2 style="font-size: clamp(1.5rem, 4vw, 2.5rem); margin-bottom: 40px; line-height: 1.4;">
-            <span class="nowrap">最高のe-Sportsプレイヤーに、</span><br class="sp-only"><span class="nowrap">君も成長していこう！</span>
+            最高のe-Sportsプレイヤーに、君も成長していこう！
         </h2>
         <a href="https://forms.gle/TWiH7YhBqPy3ENDX8" class="apply-btn" target="_blank">参加申し込みはこちら</a>
         <p style="margin-top: 30px; opacity: 0.8; font-size: 0.9rem;">※保護者の承諾が必要です。初回は保護者同伴でお越しください。</p>
