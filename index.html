@@ -42,6 +42,27 @@
             opacity: 0.5;
         }
 
+        /* --- 浮遊するゲーム装飾アイコン --- */
+        .floating-elements {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .game-icon {
+            position: absolute;
+            opacity: 0.25;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+            animation: float-around infinite ease-in-out alternate;
+        }
+
+        @keyframes float-around {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(40px, 60px) rotate(15deg); }
+        }
+
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -87,6 +108,9 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 24px;
             filter: drop-shadow(0 0 30px rgba(255, 183, 255, 0.4));
+            /* 改行修正 */
+            word-break: keep-all;
+            overflow-wrap: break-word;
         }
 
         /* --- セクションタイトル --- */
@@ -96,6 +120,9 @@
             font-weight: 900;
             margin-bottom: 70px;
             letter-spacing: 0.05em;
+            /* 改行修正 */
+            word-break: keep-all;
+            overflow-wrap: break-word;
         }
 
         /* --- 2つの舞台カード --- */
@@ -116,6 +143,13 @@
         }
 
         .stage-card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.12); }
+
+        .stage-card h3 {
+            /* 改行修正 */
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            display: block;
+        }
 
         .image-box {
             width: 100%;
@@ -138,6 +172,10 @@
         .info-layout:nth-child(even) { flex-direction: row-reverse; }
         .info-text { flex: 1; }
         .info-img { flex: 1; }
+        .info-text h2 {
+            word-break: keep-all;
+            overflow-wrap: break-word;
+        }
 
         /* --- スケジュール表（チラシ準拠） --- */
         .schedule-container {
@@ -200,6 +238,7 @@
             font-weight: 900;
             text-decoration: none;
             box-shadow: 0 15px 40px rgba(255, 0, 127, 0.4);
+            word-break: keep-all;
         }
 
         /* --- フッターお問い合わせ --- */
@@ -230,6 +269,18 @@
 <body>
 
 <div class="stars"></div>
+
+<!-- 浮遊アイコンの追加 -->
+<div class="floating-elements">
+    <!-- インベーダー -->
+    <svg class="game-icon" style="top: 15%; left: 5%; width: 60px; animation-duration: 18s;" viewBox="0 0 24 24" fill="var(--accent-blue)"><path d="M6 14h2v2H6zm10 0h2v2h-2zm-1-7h1v1h-1zm-6 0h1v1h-1zM4 8h2v2H4zm14 0h2v2h-2zm-11 3h10v2H7zm2-6h2v2H9zm4 0h2v2h-2z"/></svg>
+    <!-- コントローラー -->
+    <svg class="game-icon" style="top: 40%; right: 8%; width: 80px; animation-duration: 22s; animation-delay: -5s;" viewBox="0 0 24 24" fill="var(--accent-pink)"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM7 13H5v-2h2v2zm2-2h2v2H9v-2zm8 2c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm2-2c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
+    <!-- トロフィー -->
+    <svg class="game-icon" style="top: 75%; left: 10%; width: 70px; animation-duration: 25s; animation-delay: -2s;" viewBox="0 0 24 24" fill="#ffd700"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 11.63 21 9.55 21 7V6c0-1.1-.9-2-2-2zM5 7h2v3c-1.1 0-2-.9-2-2V7zm14 1c0 1.1-.9 2-2 2V7h2v1z"/></svg>
+    <!-- アーケードスティック -->
+    <svg class="game-icon" style="top: 10%; right: 15%; width: 50px; animation-duration: 20s;" viewBox="0 0 24 24" fill="var(--accent-purple)"><path d="M4 15h16v4H4v-4zm7-11c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm1 6h-2v5h2v-5z"/></svg>
+</div>
 
 <a href="https://forms.gle/TWiH7YhBqPy3ENDX8" class="floating-cta" target="_blank">参加を申し込む</a>
 
@@ -287,7 +338,7 @@
         </div>
     </div>
 
-    <!-- スケジュール（第2画像の内容を反映） -->
+    <!-- スケジュール -->
     <div class="schedule-container reveal">
         <h2 style="text-align: center; margin-bottom: 50px; font-size: 2.5rem;">活動スケジュール（全9回）</h2>
         
