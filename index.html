@@ -111,8 +111,7 @@
             font-size: clamp(3.2rem, 12vw, 9rem);
             font-weight: 900;
             line-height: 1.2;
-            /* 「ブ」の見切れを完全に防ぐためpaddingを増加 */
-            padding: 0.1em 0.5em; 
+            padding: 0.1em 0.5em; /* 文字の欠け防止 */
             background: linear-gradient(to bottom, #fff, #ffb7ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -128,7 +127,7 @@
             letter-spacing: 0.05em;
         }
 
-        /* --- セクション共通：舞台カードスタイル --- */
+        /* --- セクション共通スタイル --- */
         .stage-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -159,7 +158,7 @@
 
         .image-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- 指導体制・環境 (PCレイアウト) --- */
+        /* --- 指導体制・環境 (PCレイアウト用) --- */
         .info-layout {
             display: flex;
             align-items: center;
@@ -260,29 +259,31 @@
         .contact-box h4 { margin-bottom: 16px; border-left: 4px solid var(--accent-pink); padding-left: 12px; }
         .copyright { text-align: center; opacity: 0.5; font-size: 0.9rem; margin-top: 40px; }
 
-        /* --- スマホ表示最適化 --- */
+        /* --- スマホ表示：横幅を完全に揃え、指定表記を反映 --- */
         @media (max-width: 768px) {
             .container, .schedule-container { padding: 0 16px; }
             .stage-grid, .footer-grid { grid-template-columns: 1fr; gap: 24px; text-align: center; }
             
-            /* スマホでも紹介セクションの横幅を舞台カードと完全に合わせる */
+            /* スマホ用タイトル：指定の表記へ */
+            .hero-title { font-size: 2.6rem; padding: 0.2em 0.1em; line-height: 1.4; margin-bottom: 24px; }
+            .hero-title-yamagata { display: block; text-align: right; padding-right: 12%; } /* 山形を右寄せ */
+            .hero-title-club { display: block; text-align: left; padding-left: 10%; } /* クラブを左寄せ */
+
+            /* 舞台タイトル一行完結 */
+            .section-title { font-size: 5.4vw; white-space: nowrap; margin-bottom: 32px; letter-spacing: 0; }
+
+            /* 高校生スタッフ・環境：舞台カードと枠・幅を完全統一 */
             .info-layout { 
                 display: block; 
+                border-radius: 24px;
                 padding: 32px 20px;
                 margin-bottom: 24px;
                 text-align: center;
             }
-            .info-img { margin-bottom: 24px; }
+            .info-img { margin-bottom: 24px; flex: none; }
             .info-text h2 { text-align: center; font-size: 1.3rem; margin-bottom: 16px; }
             .info-text p { text-align: center; font-size: 0.9rem; margin-bottom: 16px; }
             .info-text ul { display: inline-block; text-align: left; font-size: 0.85rem; }
-            
-            /* スマホ用タイトル改行 */
-            .hero-title-br { display: block; }
-            .hero-title { font-size: 2.6rem; padding: 0.2em 0.3em; line-height: 1.3; margin-bottom: 16px; }
-            
-            /* 舞台タイトルを一行完結 */
-            .section-title { font-size: 5.4vw; white-space: nowrap; margin-bottom: 32px; letter-spacing: 0; }
             
             .stage-card { padding: 32px 20px; border-radius: 24px; text-align: center; margin-bottom: 0; }
             .stage-card h3 { text-align: center; font-size: 1.3rem; }
@@ -300,12 +301,11 @@
                 text-align: left; 
             }
             .schedule-row > div { text-align: left !important; }
-            .date-cell { font-size: 1rem; font-weight: 900; }
             
             .apply-btn { font-size: 1.2rem; padding: 18px 36px; border-radius: 50px; }
             .floating-cta { padding: 12px 20px; font-size: 0.9rem; bottom: 15px; right: 15px; }
             
-            /* 問い合わせ先情報の左揃え */
+            /* お問い合わせ詳細 左揃え */
             .contact-box { text-align: center; margin-bottom: 40px; }
             .contact-box h4 { text-align: center; border-left: none; padding-left: 0; margin-bottom: 16px; }
             .contact-box p { text-align: left !important; display: block; margin: 0 auto; width: fit-content; font-size: 0.85rem; }
@@ -329,7 +329,7 @@
     <div class="container">
         <span class="hero-badge reveal">小・中学生対象 / 参加費無料</span>
         <h1 class="hero-title reveal">
-            <span class="phrase hero-title-br">山形</span><span class="phrase">eスポーツクラブ</span>
+            <span class="hero-title-yamagata phrase">山形</span><br class="sp-only"><span class="hero-title-club phrase">eスポーツクラブ</span>
         </h1>
         <p class="reveal" style="font-size: clamp(1rem, 3vw, 1.4rem); font-weight: bold; letter-spacing: 0.3em;">
             <span class="phrase">参加者大募集！</span><span class="phrase">先着30名</span>
