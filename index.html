@@ -108,7 +108,6 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 24px;
             filter: drop-shadow(0 0 30px rgba(255, 183, 255, 0.4));
-            /* 改行修正 */
             word-break: keep-all;
             overflow-wrap: break-word;
         }
@@ -120,7 +119,6 @@
             font-weight: 900;
             margin-bottom: 70px;
             letter-spacing: 0.05em;
-            /* 改行修正 */
             word-break: keep-all;
             overflow-wrap: break-word;
         }
@@ -140,14 +138,12 @@
             padding: 48px;
             backdrop-filter: blur(12px);
             transition: 0.4s;
-            /* 文字列を揃えるための指定 */
             text-align: left;
         }
 
         .stage-card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.12); }
 
         .stage-card h3 {
-            /* タイトルの整列 */
             word-break: keep-all;
             overflow-wrap: break-word;
             display: block;
@@ -155,8 +151,8 @@
         }
 
         .stage-card p {
-            /* 説明文の整列 */
-            text-align: justify;
+            /* 説明文の末尾が崩れないよう左揃えに修正 */
+            text-align: left;
         }
 
         .image-box {
@@ -185,7 +181,7 @@
             overflow-wrap: break-word;
         }
 
-        /* --- スケジュール表（チラシ準拠） --- */
+        /* --- スケジュール表 --- */
         .schedule-container {
             background: #fff;
             color: #333;
@@ -278,7 +274,6 @@
 
 <div class="stars"></div>
 
-<!-- 浮遊アイコン -->
 <div class="floating-elements">
     <svg class="game-icon" style="top: 15%; left: 5%; width: 60px; animation-duration: 18s;" viewBox="0 0 24 24" fill="var(--accent-blue)"><path d="M6 14h2v2H6zm10 0h2v2h-2zm-1-7h1v1h-1zm-6 0h1v1h-1zM4 8h2v2H4zm14 0h2v2h-2zm-11 3h10v2H7zm2-6h2v2H9zm4 0h2v2h-2z"/></svg>
     <svg class="game-icon" style="top: 40%; right: 8%; width: 80px; animation-duration: 22s; animation-delay: -5s;" viewBox="0 0 24 24" fill="var(--accent-pink)"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM7 13H5v-2h2v2zm2-2h2v2H9v-2zm8 2c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm2-2c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
@@ -303,14 +298,14 @@
             <div class="image-box">
                 <img src="img0502.jpg" alt="League of Legends 練習風景">
             </div>
-            <h3 style="color: var(--accent-blue); font-size: 1.8rem; margin-bottom: 16px;">10月：League of Legends 部門</h3>
+            <h3 style="color: var(--accent-blue); font-size: 1.8rem; margin-bottom: 16px;">10月：<br>League of Legends 部門</h3>
             <p>山形市民スポーツフェスタ エキシビションマッチへの出場を目指し、チーム連携の基礎から戦術までを学びます。</p>
         </div>
         <div class="stage-card reveal" style="transition-delay: 0.2s;">
             <div class="image-box">
                 <img src="img0154.jpg" alt="Street Fighter 6 練習風景">
             </div>
-            <h3 style="color: var(--accent-pink); font-size: 1.8rem; margin-bottom: 16px;">11月：ストリートファイター部門</h3>
+            <h3 style="color: var(--accent-pink); font-size: 1.8rem; margin-bottom: 16px;">11月：<br>ストリートファイター部門</h3>
             <p>やまがたeスポーツフェスタ2026 in SEIZAN 対戦会への出場を目指し、格闘ゲーム特有の駆け引きや操作技術を磨きます。</p>
         </div>
     </div>
