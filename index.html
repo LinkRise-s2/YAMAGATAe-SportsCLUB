@@ -140,15 +140,23 @@
             padding: 48px;
             backdrop-filter: blur(12px);
             transition: 0.4s;
+            /* 文字列を揃えるための指定 */
+            text-align: left;
         }
 
         .stage-card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.12); }
 
         .stage-card h3 {
-            /* 改行修正 */
+            /* タイトルの整列 */
             word-break: keep-all;
             overflow-wrap: break-word;
             display: block;
+            text-align: left;
+        }
+
+        .stage-card p {
+            /* 説明文の整列 */
+            text-align: justify;
         }
 
         .image-box {
@@ -270,15 +278,11 @@
 
 <div class="stars"></div>
 
-<!-- 浮遊アイコンの追加 -->
+<!-- 浮遊アイコン -->
 <div class="floating-elements">
-    <!-- インベーダー -->
     <svg class="game-icon" style="top: 15%; left: 5%; width: 60px; animation-duration: 18s;" viewBox="0 0 24 24" fill="var(--accent-blue)"><path d="M6 14h2v2H6zm10 0h2v2h-2zm-1-7h1v1h-1zm-6 0h1v1h-1zM4 8h2v2H4zm14 0h2v2h-2zm-11 3h10v2H7zm2-6h2v2H9zm4 0h2v2h-2z"/></svg>
-    <!-- コントローラー -->
     <svg class="game-icon" style="top: 40%; right: 8%; width: 80px; animation-duration: 22s; animation-delay: -5s;" viewBox="0 0 24 24" fill="var(--accent-pink)"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM7 13H5v-2h2v2zm2-2h2v2H9v-2zm8 2c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm2-2c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
-    <!-- トロフィー -->
     <svg class="game-icon" style="top: 75%; left: 10%; width: 70px; animation-duration: 25s; animation-delay: -2s;" viewBox="0 0 24 24" fill="#ffd700"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 11.63 21 9.55 21 7V6c0-1.1-.9-2-2-2zM5 7h2v3c-1.1 0-2-.9-2-2V7zm14 1c0 1.1-.9 2-2 2V7h2v1z"/></svg>
-    <!-- アーケードスティック -->
     <svg class="game-icon" style="top: 10%; right: 15%; width: 50px; animation-duration: 20s;" viewBox="0 0 24 24" fill="var(--accent-purple)"><path d="M4 15h16v4H4v-4zm7-11c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm1 6h-2v5h2v-5z"/></svg>
 </div>
 
@@ -396,7 +400,6 @@
 </footer>
 
 <script>
-    // スクロール連動アニメーション
     const reveal = () => {
         const reveals = document.querySelectorAll('.reveal');
         for (let i = 0; i < reveals.length; i++) {
